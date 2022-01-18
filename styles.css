@@ -1,0 +1,193 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap");
+
+/* reset */
+*,
+*::before,
+*::after {
+  margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+body {
+  background-color: #161722;
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 400;
+}
+
+header {
+  background: url(bg-desktop-dark.jpg) no-repeat center center/cover;
+  height: 300px;
+}
+
+
+
+.header-container {
+  margin: auto;
+  padding-top: 100px;
+  width: 500px;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+}
+
+.head h1 {
+  color: white;
+  letter-spacing: 0.2em;
+}
+
+.head button {
+  background: none;
+  border: none;
+  font-size: 2em;
+  color: rgb(182, 127, 9);
+}
+.head button:hover {
+  cursor: pointer;
+  /* color: aliceblue; */
+}
+
+/* .head button */
+
+form {
+  display: flex;
+  padding: 1em;
+  margin: 2em 0;
+}
+
+input {
+  background: none;
+  border: none;
+  outline: none;
+  width: 75%;
+  color: aliceblue;
+  font-size: 1em;
+}
+
+form,
+.tasks {
+  background-color: #282935;
+  border-radius: 0.5em;
+}
+
+#bg {
+  margin-bottom: 2em;
+}
+
+.task {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  padding: 1em;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 1s;
+}
+
+.task div {
+  display: flex;
+  align-items: center;
+}
+
+.task button {
+  background: none;
+  border: none;
+  display: none;
+  cursor: pointer;
+}
+
+.task ul {
+  display: flex;
+  gap: 5px;
+}
+
+.task li {
+  list-style: none;
+}
+
+.task:hover button {
+    display: flex;
+    align-items: center;
+}
+
+.task:hover button i {
+    font-size: 1.4em;
+    color: rgba(211, 211, 211, 0.501);
+}
+
+
+h5 {
+  color: rgb(240, 248, 255);
+  font-size: 1em;
+  font-weight: 500;
+  padding-top: 2px;
+}
+
+form i,
+.task i {
+  margin-right: 0.5em;
+  color: rgba(250, 250, 250, 0.2);
+  font-size: 1.2em;
+}
+
+i.bx-check-circle {
+  background: linear-gradient(0.1turn, #dc51e6, #462ff2);
+  color: rgb(44, 48, 44);
+  border-radius: 50%;
+}
+
+.bx {
+  cursor: pointer;
+}
+
+.checked {
+  color: rgb(128, 128, 128);
+  text-decoration-line: line-through;
+}
+
+.task:last-of-type {
+  border-bottom: none;
+  color: rgba(223, 223, 223, 0.816);
+  
+}
+
+.info {
+  font-size: 0.8em;
+  padding: 0.75em 1em;
+}
+
+.info p {
+  cursor: pointer;
+}
+
+
+
+/* ----------------- */
+.light-background {
+  background-color: aliceblue;
+}
+
+.light-gray {
+  background-color: rgb(240, 240, 240);
+}
+
+.day {
+  color: rgb(226, 226, 226);
+}
+
+.night {
+  color: #161722;
+}
+
+.border-dark {
+  border-bottom: 1px solid rgb(255, 255, 255);
+}
+
+.change {
+  background: url(bg-desktop-light.jpg) no-repeat center center/cover;
+}
+
+.bxs-moon {
+  color: rgb(0, 4, 29);
+}
