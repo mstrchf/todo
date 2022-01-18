@@ -53,53 +53,51 @@
 
 // todos array data
 let todos = [
-    {
-        id: 1,
-        title: "This is my first task",
-        completed: true,
-    },
-    {
-        id: 2,
-        title: "This is my second task",
-        completed: false,
-    },
-    {
-        id: 3,
-        title: "This is my third task",
-        completed: false,
-    },
+  {
+    id: 1,
+    title: "This is my first task",
+    completed: true,
+  },
+  {
+    id: 2,
+    title: "This is my second task",
+    completed: true,
+  },
+  {
+    id: 3,
+    title: "This is my third task",
+    completed: true,
+  },
 ];
 
-loadTodos(todos)
+// loadTodos(todos)
 
 // selectors
 const todosContainer = document.querySelector(".tasks");
-const tasksLeft = document.getElementById('count');
-const input = document.querySelector('#newTodo')
+const tasksLeft = document.getElementById("count");
+const input = document.querySelector("#newTodo");
 
 // event listeners
 
-
 // functions
 
-function loadTodos(array) {
-    let count = 0;
-    array.forEach((todo) => {
-        todosContainer.innerHTML += `<div class="task">
+let count = 0;
+todos.forEach((todo) => {
+  todosContainer.innerHTML += `<div class="task">
   <div>
-  ${todo.completed
-                ? '<i class="bx bx-check-circle"></i>'
-                : '<i class="bx bx-circle"></i>'
-            }
+  ${
+    todo.completed
+      ? '<i class="bx bx-check-circle"></i>'
+      : '<i class="bx bx-circle"></i>'
+  }
   <h5>${todo.title}</h5>
   </div>
   <button><i class="bx bx-x"></i></button>
 </div>`;
 
-        if (!todo.completed) count++
+  if (!todo.completed) count++;
 
-        
-
-    });
-}
-
+  if (count == 1) {
+    tasksLeft.textContent = `${count} todo left`;
+  } else tasksLeft.textContent = `${count} todos left`;
+});
