@@ -70,20 +70,22 @@ let todos = [
   },
 ];
 
-// loadTodos(todos)
 
 // selectors
 const todosContainer = document.querySelector(".tasks");
 const tasksLeft = document.getElementById("count");
 const input = document.querySelector("#newTodo");
 
+loadTodos(todos)
+
 // event listeners
 
 // functions
 
-let count = 0;
-todos.forEach((todo) => {
-  todosContainer.innerHTML += `<div class="task">
+function loadTodos(arr) {
+  let count = 0;
+  arr.forEach((todo) => {
+    todosContainer.innerHTML += `<div class="task">
   <div>
   ${
     todo.completed
@@ -95,9 +97,10 @@ todos.forEach((todo) => {
   <button><i class="bx bx-x"></i></button>
 </div>`;
 
-  if (!todo.completed) count++;
+    if (!todo.completed) count++;
 
-  if (count == 1) {
-    tasksLeft.textContent = `${count} todo left`;
-  } else tasksLeft.textContent = `${count} todos left`;
-});
+    if (count == 1) {
+      tasksLeft.textContent = `${count} todo left`;
+    } else tasksLeft.textContent = `${count} todos left`;
+  });
+}
