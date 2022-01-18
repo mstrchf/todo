@@ -70,26 +70,23 @@ let todos = [
   },
 ];
 
-let id = 3
-
+let id = 3;
 
 // selectors
 const todosContainer = document.querySelector(".tasks");
 const tasksLeft = document.getElementById("count");
-const form = document.querySelector('form');
-const input = document.querySelector('#newTodo')
+const form = document.querySelector("form");
+const input = document.querySelector("#newTodo");
 
-loadTodos(todos)
+loadTodos(todos);
 
 // event listeners
-
-form.addEventListener('submit', addTodo)
+form.addEventListener("submit", addTodo);
 
 // functions
-
 function addTodo(e) {
-    e.preventDefault();
-    todosContainer.innerHTML += `<div class="task">
+  e.preventDefault();
+  todosContainer.innerHTML += `<div class="task">
   <div>
   <i class="bx bx-circle"></i>
 
@@ -98,19 +95,19 @@ function addTodo(e) {
   <button><i class="bx bx-x"></i></button>
 </div>`;
 
-updateTodosArray(todos)
+  updateTodosArray(todos);
+  checkTaskLeft()
 }
 
 function updateTodosArray(arr) {
-    arr.push({
-        id: id += 1,
-        title: input.value,
-        completed: false
-    })
+  arr.push({
+    id: (id += 1),
+    title: input.value,
+    completed: false,
+  });
 }
 
 function loadTodos(arr) {
-  let count = 0;
   arr.forEach((todo) => {
     todosContainer.innerHTML += `<div class="task">
   <div>
@@ -122,16 +119,22 @@ function loadTodos(arr) {
   <h5>${todo.title}</h5>
   </div>
   <button><i class="bx bx-x"></i></button>
-</div>`;
-
-    if (!todo.completed) count++;
-
-    if (count == 1) {
-      tasksLeft.textContent = `${count} todo left`;
-    } else tasksLeft.textContent = `${count} todos left`;
+</div>`
   });
+
+  checkTaskLeft()
+
 }
 
-checkTaskLeft(){
-    
+function checkTaskLeft() {
+  let count = 0;
+
+  todos.forEach((todo) => {
+    if (!todo.completed) count++;
+  });
+
+  if (count == 1) {
+    tasksLeft.textContent = `${count} todo left`;
+  } else {
+      tasksLeft.textContent = `${count} todos left`;}
 }
