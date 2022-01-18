@@ -70,17 +70,44 @@ let todos = [
   },
 ];
 
+let id = 3
+
 
 // selectors
 const todosContainer = document.querySelector(".tasks");
 const tasksLeft = document.getElementById("count");
-const input = document.querySelector("#newTodo");
+const form = document.querySelector('form');
+const input = document.querySelector('#newTodo')
 
 loadTodos(todos)
 
 // event listeners
 
+form.addEventListener('submit', addTodo)
+
 // functions
+
+function addTodo(e) {
+    e.preventDefault();
+    todosContainer.innerHTML += `<div class="task">
+  <div>
+  <i class="bx bx-circle"></i>
+
+  <h5>${input.value}</h5>
+  </div>
+  <button><i class="bx bx-x"></i></button>
+</div>`;
+
+updateTodosArray(todos)
+}
+
+function updateTodosArray(arr) {
+    arr.push({
+        id: id += 1,
+        title: input.value,
+        completed: false
+    })
+}
 
 function loadTodos(arr) {
   let count = 0;
@@ -103,4 +130,8 @@ function loadTodos(arr) {
       tasksLeft.textContent = `${count} todo left`;
     } else tasksLeft.textContent = `${count} todos left`;
   });
+}
+
+checkTaskLeft(){
+    
 }
