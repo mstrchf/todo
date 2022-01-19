@@ -82,13 +82,21 @@ loadTodos(todos);
 
 // event listeners
 form.addEventListener("submit", addTodo);
+todosContainer.addEventListener("click", (e) => {
+  console.log(e.target.innerHTML);
+  if (e.target.classList.contains("check")) {
+    e.target.classList.toggle("bx-check-circle");
+    e.target.classList.toggle("bx-circle");
+    e.target.nextElementSibling.classList.toggle("checked");
+  }
+});
 
 // functions
 function addTodo(e) {
   e.preventDefault();
   todosContainer.innerHTML += `<div class="task">
   <div>
-  <i class="bx bx-circle"></i>
+  <i class="bx bx-circle check"></i>
 
   <h5>${input.value}</h5>
   </div>
@@ -96,7 +104,7 @@ function addTodo(e) {
 </div>`;
 
   updateTodosArray(todos);
-  checkTaskLeft()
+  checkTaskLeft();
 }
 
 function updateTodosArray(arr) {
@@ -113,17 +121,16 @@ function loadTodos(arr) {
   <div>
   ${
     todo.completed
-      ? '<i class="bx bx-check-circle"></i>'
-      : '<i class="bx bx-circle"></i>'
+      ? '<i class="bx bx-check-circle check"></i>'
+      : '<i class="bx bx-circle check"></i>'
   }
-  <h5>${todo.title}</h5>
+  <h5 class='checked'>${todo.title}</h5>
   </div>
   <button><i class="bx bx-x"></i></button>
-</div>`
+</div>`;
   });
 
-  checkTaskLeft()
-
+  checkTaskLeft();
 }
 
 function checkTaskLeft() {
@@ -136,5 +143,6 @@ function checkTaskLeft() {
   if (count == 1) {
     tasksLeft.textContent = `${count} todo left`;
   } else {
-      tasksLeft.textContent = `${count} todos left`;}
+    tasksLeft.textContent = `${count} todos left`;
+  }
 }
