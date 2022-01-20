@@ -66,7 +66,7 @@ let todos = [
   {
     id: 3,
     title: "This is my third task",
-    completed: true,
+    completed: false,
   },
 ];
 
@@ -78,45 +78,42 @@ const tasksLeft = document.getElementById("count");
 const form = document.querySelector("form");
 const input = document.querySelector("#newTodo");
 
-loadTodos(todos);
+loadTodos();
 
 // event listeners
 form.addEventListener("submit", addTodo);
-todosContainer.addEventListener("click", (e) => {
-  console.log(e.target.innerHTML);
-  if (e.target.classList.contains("check")) {
-    e.target.classList.toggle("bx-check-circle");
-    e.target.classList.toggle("bx-circle");
-    e.target.nextElementSibling.classList.toggle("checked");
-  }
-});
+todosContainer.addEventListener("click", checkTodo);
 
 // functions
 function addTodo(e) {
   e.preventDefault();
   todosContainer.innerHTML += `<div class="task">
   <div>
-  <i class="bx bx-circle check"></i>
+  <i  class="bx bx-circle check"></i>
 
-  <h5>${input.value}</h5>
+  <h5 id='${++id}'>${input.value}</h5>
   </div>
   <button><i class="bx bx-x"></i></button>
 </div>`;
 
-  updateTodosArray(todos);
+  updateTodosArray();
   checkTaskLeft();
 }
 
+function deleteTodo(e) {
+  console.log("hello");
+}
+
 function updateTodosArray(arr) {
-  arr.push({
-    id: (id += 1),
+  todos.push({
+    id: id,
     title: input.value,
     completed: false,
   });
 }
 
-function loadTodos(arr) {
-  arr.forEach((todo) => {
+function loadTodos() {
+  todos.forEach((todo) => {
     todosContainer.innerHTML += `<div class="task">
   <div>
   ${
@@ -124,13 +121,37 @@ function loadTodos(arr) {
       ? '<i class="bx bx-check-circle check"></i>'
       : '<i class="bx bx-circle check"></i>'
   }
-  <h5 class='checked'>${todo.title}</h5>
+  <h5 id='${todo.id}' ${todo.completed ? 'class="checked"' : 'class="haha"'}>${todo.title}</h5>
   </div>
   <button><i class="bx bx-x"></i></button>
 </div>`;
   });
 
   checkTaskLeft();
+}
+
+function checkTodo(e) {
+  if (e.target.classList.contains("check")) {
+    e.target.classList.toggle("bx-check-circle");
+    e.target.classList.toggle("bx-circle");
+    e.target.nextElementSibling.classList.toggle("checked");
+  }
+
+  // task: refactor code below
+  todos.forEach(todo => {
+    if (e.target.nextElementSibling.id == todo.id.toString() ) {
+      if (e.target.classList.contains('bx-check-circle')) {
+        todo.completed = true
+      }
+    } else if (e.target.classList.contains('bx-circle')) {
+      todo.completed = false
+    }
+  });
+
+
+  
+  clearAll()
+  loadTodos()
 }
 
 function checkTaskLeft() {
@@ -145,4 +166,8 @@ function checkTaskLeft() {
   } else {
     tasksLeft.textContent = `${count} todos left`;
   }
+}
+
+function clearAll() {
+  todosContainer.innerHTML = ''
 }
