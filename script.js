@@ -70,19 +70,22 @@ let todos = [
   },
 ];
 
-let id = 3;
+let id = todos.length;
 
 // selectors
 const todosContainer = document.querySelector(".tasks");
 const tasksLeft = document.getElementById("count");
 const form = document.querySelector("form");
 const input = document.querySelector("#newTodo");
+const clear = document.querySelector("#clear");
 
 loadTodos();
 
 // event listeners
 form.addEventListener("submit", addTodo);
+todosContainer.addEventListener("click", deleteTodo);
 todosContainer.addEventListener("click", checkTodo);
+clear.addEventListener("click", clearCompleted);
 
 // functions
 function addTodo(e) {
@@ -91,20 +94,19 @@ function addTodo(e) {
   <div>
   <i  class="bx bx-circle check"></i>
 
-  <h5 id='${++id}'>${input.value}</h5>
+  <h5>${input.value}</h5>
   </div>
-  <button><i class="bx bx-x"></i></button>
+  <button id='${++id}'><i class="bx bx-x"></i></button>
 </div>`;
+
+
 
   updateTodosArray();
   checkTaskLeft();
+  input.value = ''
 }
 
-function deleteTodo(e) {
-  console.log("hello");
-}
-
-function updateTodosArray(arr) {
+function updateTodosArray() {
   todos.push({
     id: id,
     title: input.value,
@@ -121,9 +123,9 @@ function loadTodos() {
       ? '<i class="bx bx-check-circle check"></i>'
       : '<i class="bx bx-circle check"></i>'
   }
-  <h5 id='${todo.id}' ${todo.completed ? 'class="checked"' : 'class="haha"'}>${todo.title}</h5>
+  <h5 ${todo.completed ? 'class="checked"' : 'class=""'}>${todo.title}</h5>
   </div>
-  <button><i class="bx bx-x"></i></button>
+  <button id='${todo.id}'><i class="bx bx-x"></i></button>
 </div>`;
   });
 
@@ -131,36 +133,25 @@ function loadTodos() {
 }
 
 function checkTodo(e) {
-  if (e.target.classList.contains("check")) {
-    e.target.classList.toggle("bx-check-circle");
-    e.target.classList.toggle("bx-circle");
-    e.target.nextElementSibling.classList.toggle("checked");
-  }
-
   // task: refactor code below
-  todos.forEach(todo => {
-    if (e.target.nextElementSibling.id == todo.id.toString() ) {
-      if (e.target.classList.contains('bx-check-circle')) {
-        todo.completed = true
-      }
-    } else if (e.target.classList.contains('bx-circle')) {
-      todo.completed = false
+  todos.forEach((todo) => {
+    if (e.target.parentNode.nextElementSibling.id == todo.id.toString()) {
+      todo.completed ? (todo.completed = false) : (todo.completed = true);
     }
   });
 
-
-  
-  clearAll()
-  loadTodos()
+  clearAll();
+  loadTodos();
 }
 
 function checkTaskLeft() {
   let count = 0;
-
+  console.log(todos);
   todos.forEach((todo) => {
     if (!todo.completed) count++;
   });
 
+  // checking for
   if (count == 1) {
     tasksLeft.textContent = `${count} todo left`;
   } else {
@@ -168,6 +159,31 @@ function checkTaskLeft() {
   }
 }
 
+function deleteTodo(e) {
+  console.log(e.target.parentNode.id);
+  if (e.target.classList.contains("bx-x")) {
+    todos = todos.filter((todo) => {
+      return todo.id != e.target.parentNode.id;
+    });
+    e.target.closest(".task").remove();
+  }
+  checkTaskLeft();
+}
+
 function clearAll() {
-  todosContainer.innerHTML = ''
+  todosContainer.innerHTML = "";
+}
+
+function clearCompleted() {
+  todos = todos.filter((todo) => {
+    return !todo.completed;
+  });
+
+  let selected = document.querySelectorAll(".bx-check-circle");
+  selected.forEach((task) => {
+    task.closest(".task").remove();
+  });
+
+  clearAll();
+  loadTodos();
 }
